@@ -43,14 +43,14 @@ function SinglePage() {
                 <div className="price">$ {post.price}</div>
               </div>
               <div className="user">
-                <img src={post.user.avatar} alt="" />
-                <span>{post.user.username}</span>
+                <img src={post.userId.avatar} alt="" />
+                <span>{post.userId.username}</span>
               </div>
             </div>
             <div
               className="bottom"
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(post.postDetail.desc),
+                __html: DOMPurify.sanitize(post.desc),
               }}
             ></div>
           </div>
@@ -64,7 +64,7 @@ function SinglePage() {
               <img src="/utility.png" alt="" />
               <div className="featureText">
                 <span>Utilities</span>
-                {post.postDetail.utilities === "owner" ? (
+                {post.utilities === "owner" ? (
                   <p>Owner is responsible</p>
                 ) : (
                   <p>Tenant is responsible</p>
@@ -75,7 +75,7 @@ function SinglePage() {
               <img src="/pet.png" alt="" />
               <div className="featureText">
                 <span>Pet Policy</span>
-                {post.postDetail.pet === "allowed" ? (
+                {post.pet === "allowed" ? (
                   <p>Pets Allowed</p>
                 ) : (
                   <p>Pets not Allowed</p>
@@ -86,7 +86,7 @@ function SinglePage() {
               <img src="/fee.png" alt="" />
               <div className="featureText">
                 <span>Income Policy</span>
-                <p>{post.postDetail.income}</p>
+                <p>{post.income}</p>
               </div>
             </div>
           </div>
@@ -94,7 +94,7 @@ function SinglePage() {
           <div className="sizes">
             <div className="size">
               <img src="/size.png" alt="" />
-              <span>{post.postDetail.size} sqft</span>
+              <span>{post.size} sqft</span>
             </div>
             <div className="size">
               <img src="/bed.png" alt="" />
@@ -112,9 +112,9 @@ function SinglePage() {
               <div className="featureText">
                 <span>School</span>
                 <p>
-                  {post.postDetail.school > 999
-                    ? post.postDetail.school / 1000 + "km"
-                    : post.postDetail.school + "m"}{" "}
+                  {post.school > 999
+                    ? post.school / 1000 + "km"
+                    : post.school + "m"}{" "}
                   away
                 </p>
               </div>
@@ -123,14 +123,14 @@ function SinglePage() {
               <img src="/pet.png" alt="" />
               <div className="featureText">
                 <span>Bus Stop</span>
-                <p>{post.postDetail.bus}m away</p>
+                <p>{post.bus}m away</p>
               </div>
             </div>
             <div className="feature">
               <img src="/fee.png" alt="" />
               <div className="featureText">
                 <span>Restaurant</span>
-                <p>{post.postDetail.restaurant}m away</p>
+                <p>{post.restaurant}m away</p>
               </div>
             </div>
           </div>

@@ -9,27 +9,31 @@ function ProfileUpdatePage() {
   const { currentUser, updateUser } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [avatar, setAvatar] = useState([]);
-
   const navigate = useNavigate();
+
+  if (currentUser._) {
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
 
-    const { username, email, password } = Object.fromEntries(formData);
-
+    formData.append("avatar", avatar[0] || currentUser.avatar);
     try {
-      const res = await apiRequest.put(`/users/${currentUser.id}`, {
-        username,
-        email,
-        password,
-        avatar:avatar[0]
+      // Use the _id if available, otherwise fall back to id
+      const userId = currentUser._id || currentUser.id;
+
+      const res = await apiRequest.post(`/updateUser/${userId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
+
       updateUser(res.data);
       navigate("/profile");
     } catch (err) {
-      console.log(err);
-      setError(err.response.data.message);
+      console.error(err);
+      setError(err.response?.data?.message || "An error occurred");
     }
   };
 
@@ -60,15 +64,19 @@ function ProfileUpdatePage() {
             <label htmlFor="password">Password</label>
             <input id="password" name="password" type="password" />
           </div>
-          <button>Update</button>
-          {error && <span>error</span>}
+          <button type="submit">Update</button>
+          {error && <span className="error">{error}</span>}
         </form>
       </div>
       <div className="sideContainer">
-        <img src={avatar[0] || currentUser.avatar || "/noavatar.jpg"} alt="" className="avatar" />
+        <img
+          src={avatar[0] || currentUser.avatar || "/noavatar.jpg"}
+          alt=""
+          className="avatar"
+        />
         <UploadWidget
           uwConfig={{
-            cloudName: "lamadev",
+            cloudName: "dt85gvalz",
             uploadPreset: "estate",
             multiple: false,
             maxImageFileSize: 2000000,

@@ -11,43 +11,46 @@ function NewPostPage() {
   const [images, setImages] = useState([]);
   const [error, setError] = useState("");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const formData = new FormData(e.target);
+
+    // Use either HTML or plain text for 'desc'
+    const plainTextDesc = value.replace(/<[^>]+>/g, "");
+    formData.append("desc", plainTextDesc);
+
     const inputs = Object.fromEntries(formData);
 
     try {
-      const res = await apiRequest.post("/posts", {
-        postData: {
-          title: inputs.title,
-          price: parseInt(inputs.price),
-          address: inputs.address,
-          city: inputs.city,
-          bedroom: parseInt(inputs.bedroom),
-          bathroom: parseInt(inputs.bathroom),
-          type: inputs.type,
-          property: inputs.property,
-          latitude: inputs.latitude,
-          longitude: inputs.longitude,
-          images: images,
-        },
-        postDetail: {
-          desc: value,
-          utilities: inputs.utilities,
-          pet: inputs.pet,
-          income: inputs.income,
-          size: parseInt(inputs.size),
-          school: parseInt(inputs.school),
-          bus: parseInt(inputs.bus),
-          restaurant: parseInt(inputs.restaurant),
-        },
+      const res = await apiRequest.post("/addPost", {
+        title: inputs.title,
+        price: parseInt(inputs.price),
+        address: inputs.address,
+        city: inputs.city,
+        bedroom: parseInt(inputs.bedroom),
+        bathroom: parseInt(inputs.bathroom),
+        type: inputs.type,
+        property: inputs.property,
+        latitude: inputs.latitude,
+        longitude: inputs.longitude,
+        images: images,
+        desc: plainTextDesc, // If you want to send plain text
+        utilities: inputs.utilities,
+        pet: inputs.pet,
+        income: inputs.income,
+        size: parseInt(inputs.size),
+        school: parseInt(inputs.school),
+        bus: parseInt(inputs.bus),
       });
-      navigate("/"+res.data.id)
+
+      console.log(res.data.post.id);
+      navigate("/" + res.data.post._id);
     } catch (err) {
       console.log(err);
-      setError(error);
+      setError(err.message); // Set the error message to state
     }
   };
 
