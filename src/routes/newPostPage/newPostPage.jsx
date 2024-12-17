@@ -36,21 +36,22 @@ function NewPostPage() {
         property: inputs.property,
         latitude: inputs.latitude,
         longitude: inputs.longitude,
-        images: images,
-        desc: plainTextDesc, // If you want to send plain text
+        images: images, 
+        desc: plainTextDesc, 
         utilities: inputs.utilities,
         pet: inputs.pet,
         income: inputs.income,
         size: parseInt(inputs.size),
         school: parseInt(inputs.school),
         bus: parseInt(inputs.bus),
+        restaurant: parseInt(inputs.restaurant),
       });
 
-      console.log(res.data.post.id);
-      navigate("/" + res.data.post._id);
+      console.log(res.data.post._id);
+      navigate("/post" + res.data.post._id);
     } catch (err) {
       console.log(err);
-      setError(err.message); // Set the error message to state
+      setError(err.message); 
     }
   };
 
@@ -167,7 +168,7 @@ function NewPostPage() {
         <UploadWidget
           uwConfig={{
             multiple: true,
-            cloudName: "lamadev",
+            cloudName: "dt85gvalz",
             uploadPreset: "estate",
             folder: "posts",
           }}

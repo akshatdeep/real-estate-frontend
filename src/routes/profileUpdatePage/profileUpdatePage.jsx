@@ -11,22 +11,19 @@ function ProfileUpdatePage() {
   const [avatar, setAvatar] = useState([]);
   const navigate = useNavigate();
 
-  if (currentUser._) {
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-
-    formData.append("avatar", avatar[0] || currentUser.avatar);
+    const formData = new FormData(e.target)
+    const {username, email, password} = Object.fromEntries(formData)
     try {
       // Use the _id if available, otherwise fall back to id
       const userId = currentUser._id || currentUser.id;
+      const res = await apiRequest.post(`/updateUser/${userId}`, {
+        username,
+        email,
+        password,
+        avatar
 
-      const res = await apiRequest.post(`/updateUser/${userId}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
       });
 
       updateUser(res.data);

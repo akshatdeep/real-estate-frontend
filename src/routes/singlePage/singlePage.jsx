@@ -9,6 +9,7 @@ import apiRequest from "../../lib/apiRequest";
 
 function SinglePage() {
   const post = useLoaderData();
+  console.log(post._id);
   const [saved, setSaved] = useState(post.isSaved);
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -17,10 +18,10 @@ function SinglePage() {
     if (!currentUser) {
       navigate("/login");
     }
-    // AFTER REACT 19 UPDATE TO USEOPTIMISTIK HOOK
     setSaved((prev) => !prev);
     try {
-      await apiRequest.post("/users/save", { postId: post.id });
+      await apiRequest.post("/savePost", { postId: post._id });
+      console.log({ postId: post.id })
     } catch (err) {
       console.log(err);
       setSaved((prev) => !prev);

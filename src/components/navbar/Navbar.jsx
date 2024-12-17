@@ -8,7 +8,7 @@ function Navbar() {
   const [open, setOpen] = useState(false);
 
   const { currentUser } = useContext(AuthContext);
-
+  // console.log()
   const fetch = useNotificationStore((state) => state.fetch);
   const number = useNotificationStore((state) => state.number);
 
@@ -19,7 +19,7 @@ function Navbar() {
       <div className="left">
         <a href="/" className="logo">
           <img src="/logo.png" alt="" />
-          <span>LamaEstate</span>
+          <span>FirstHomes</span>
         </a>
         <a href="/">Home</a>
         <a href="/">About</a>
